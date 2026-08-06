@@ -1,0 +1,17 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1{
+    color: blue;
+}
+
+nav a{
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+h2{
+    color: darkblue;
+}
