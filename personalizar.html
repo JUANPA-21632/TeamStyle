@@ -2,34 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Personalizar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizar Uniforme - TeamStyle</title>
+
     <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
-<h1>Personalizar Uniforme</h1>
+    <main class="contenedor">
 
-<a href="index.html">Volver al inicio</a>
+        <h1 class="titulo-prsonalizar">Personalizar</h1>
+        
 
-<form>
+        <a href="index.html" class="volver">← Volver al inicio</a>
 
-<label>Nombre del equipo:</label><br>
-<input type="text"><br><br>
+        <form id="formulario">
 
-<label>Deporte:</label><br>
-<select>
-<option>Fútbol</option>
-<option>Baloncesto</option>
-<option>Voleibol</option>
-</select><br><br>
+            <div class="caja-formulario">
+                <label for="equipo">Nombre del equipo:</label>
+                <input type="text" id="equipo" required>
+            </div>
 
-<label>Color:</label><br>
-<input type="text"><br><br>
+            <div class="caja-formulario">
+                <label for="deporte">Deporte:</label>
+                <select id="deporte" required>
+                    <option value="">Selecciona un deporte</option>
+                    <option value="Fútbol">Fútbol</option>
+                    <option value="Baloncesto">Baloncesto</option>
+                    <option value="Voleibol">Voleibol</option>
+                </select>
+            </div>
 
-<input type="submit" value="Enviar">
+            <div class="caja-formulario">
+                <label for="color">Color del uniforme:</label>
+                <input type="color" id="color" value="#00aaff">
+            </div>
 
-</form>
+            <button type="submit">Enviar pedido</button>
+
+        </form>
+
+        <div id="mensaje"></div>
+
+    </main>
+
+    <script src="js/script.js"></script>
 
 </body>
 </html>
-
