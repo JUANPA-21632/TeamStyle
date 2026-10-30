@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizar Uniforme - TeamStyle</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <h1 class="titulo-prsonalizar">Personalizar</h1>
+        
+
+        <a href="index.html" class="volver">← Volver al inicio</a>
+
+        <form id="formulario">
+            
+<h2>Personaliza tu uniforme</h2>
+
+<h2 id="nombreUniforme">Personaliza tu uniforme</h2>
+
+<script>
+const parametros = new URLSearchParams(window.location.search);
+const uniforme = parametros.get("uniforme");
+
+if (uniforme) {
+    document.getElementById("nombreUniforme").textContent =
+        "Personaliza: " + uniforme;
+}
+</script>
+
+<form id="formPersonalizar">
+
+    <label for="equipo">Nombre del equipo:</label>
+        <input
+         type="text"
+         id="equipo"   
+         placeholder="Escribe el nombre del equipo">
+    <label for="deporte">Deporte:</label><br>
+    <select id="deporte" name="deporte">
+        <option value="Fútbol">Fútbol</option>
+        <option value="Baloncesto">Baloncesto</option>
+        <option value="Voleibol">Voleibol</option>
+    </select>
+    <br><br>
+    <label for="colorBase">Color 1 - Base del uniforme:</label><br>
+    <input type="color" id="colorBase" value="#000000">
+    <br><br>
+    <label for="colorDetalles">Color 2 - Detalles del uniforme:</label><br>
+    <input type="color" id="colorDetalles" value="#ffffff">
+    <br><br>
+    <input type="submit" value="Crear mi diseño">
+
+</form>
+
+<div id="resultado"></div>
+
+        </form>
+
+        <div id="mensaje"></div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
