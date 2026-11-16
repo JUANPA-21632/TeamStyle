@@ -1,0 +1,8 @@
+{
+  "name": "teamstyle-store-demo",
+  "version": "1.0.0",
+  "description": "Tienda didáctica TeamStyle con pedidos en SQLite",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"express": "^4.21.2"}
+}
