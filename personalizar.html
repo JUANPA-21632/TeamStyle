@@ -1,70 +1,249 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Personaliza | TeamStyle</title><link rel="stylesheet" href="css/estilos.css"></head><body><header><a class="brand" href="index.html">TEAM<span>STYLE</span></a><nav><a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a><a href="personalizar.html">Personalizar</a><a href="carrito.html">Mi pedido</a><a href="contacto.html">Contacto</a></nav></header><main><p class="eyebrow">Hazlo de tu equipo</p><h1>Personaliza tu uniforme</h1><p class="intro">Completa los datos del equipo, elige colores y define las tallas y cantidades. Esta es una solicitud de pedido demostrativa; no se realiza ningún cobro.</p><form id="customForm"><section class="panel"><h2>Datos del equipo</h2><div class="formgrid"><div class="field"><label>Nombre del cliente / representante *</label><input name="client" required></div><div class="field"><label>Nombre del equipo o institución *</label><input name="team" required></div><div class="field"><label>Deporte *</label><select name="sport" id="sport" required><option value="">Seleccionar</option><option>Fútbol</option><option>Voleibol</option><option>Baloncesto</option></select></div><div class="field"><label>Diseño elegido *</label><input name="design" id="design" required readonly></div><div class="field"><label>Correo electrónico *</label><input type="email" name="email" required></div><div class="field"><label>Teléfono</label><input name="phone" type="tel"></div></div></section><section class="panel"><h2>Colores del uniforme</h2><div class="formgrid"><div class="field"><label>Color base</label><input type="color" name="baseColor" value="#152d59"></div><div class="field"><label>Color secundario / detalles</label><input type="color" name="detailColor" value="#c8f135"></div></div><p class="notice">Los colores elegidos se guardan como referencia para la solicitud.</p></section><section class="panel"><h2>Jugadores, tallas y cantidades</h2><p class="notice">Agrega una fila por jugador. Cada uno puede tener nombre, número y talla diferentes.</p><div id="players"></div><div class="actions"><button type="button" class="secondary" onclick="addPlayer()">+ Agregar jugador</button></div></section><section class="panel"><h2>Revisión del pedido</h2><div class="field"><label>Notas adicionales</label><textarea name="notes" rows="3" placeholder="Ej. incluir medias, fecha requerida o detalles adicionales"></textarea></div><p id="total" class="notice">Cantidad de uniformes: 0</p><button type="submit">Agregar solicitud al carrito</button></section></form></main><footer>TEAMSTYLE · Tu diseño, tu equipo</footer><script>
-const selected=JSON.parse(localStorage.getItem('tsSelected')||'{}');
-const sportField=document.getElementById('sport');
-const designField=document.getElementById('design');
-if(sportField) sportField.value=selected.sport||'';
-if(designField) designField.value=selected.design||'Diseño personalizado';
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personaliza | TeamStyle</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="index.html">TEAM<span>STYLE</span></a>
+      <nav>
+        <a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a
+        ><a href="personalizar.html">Personalizar</a
+        ><a href="carrito.html">Mi pedido</a
+        ><a href="contacto.html">Contacto</a>
+      </nav>
+    </header>
+    <main>
+      <p class="eyebrow">Hazlo de tu equipo</p>
+      <h1>Personaliza tu uniforme</h1>
+      <p class="intro">
+        Completa los datos del equipo, elige colores y define las tallas y
+        cantidades. Esta es una solicitud de pedido demostrativa; no se realiza
+        ningún cobro.
+      </p>
+      <form id="customForm">
+        <section class="panel">
+          <h2>Datos del equipo</h2>
+          <div class="formgrid">
+            <div class="field">
+              <label>Nombre del cliente / representante *</label
+              ><input name="client" required />
+            </div>
+            <div class="field">
+              <label>Nombre del equipo o institución *</label
+              ><input name="team" required />
+            </div>
+            <div class="field">
+              <label>Deporte *</label
+              ><select name="sport" id="sport" required>
+                <option value="">Seleccionar</option>
+                <option>Fútbol</option>
+                <option>Voleibol</option>
+                <option>Baloncesto</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Diseño elegido *</label
+              ><input name="design" id="design" required readonly />
+            </div>
+            <div class="field">
+              <label>Correo electrónico *</label
+              ><input type="email" name="email" required />
+            </div>
+            <div class="field">
+              <label>Teléfono</label><input name="phone" type="tel" />
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Colores del uniforme</h2>
+          <div class="formgrid">
+            <div class="field">
+              <label>Color base</label
+              ><input type="color" name="baseColor" value="#152d59" />
+            </div>
+            <div class="field">
+              <label>Color secundario / detalles</label
+              ><input type="color" name="detailColor" value="#c8f135" />
+            </div>
+          </div>
+          <p class="notice">
+            Los colores elegidos se guardan como referencia para la solicitud.
+          </p>
+        </section>
+        <section class="panel">
+          <h2>Jugadores, tallas y cantidades</h2>
+          <p class="notice">
+            Agrega una fila por jugador. Cada uno puede tener nombre, número y
+            talla diferentes.
+          </p>
+          <div id="players"></div>
+          <div class="actions">
+            <button type="button" class="secondary" onclick="addPlayer()">
+              + Agregar jugador
+            </button>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Revisión del pedido</h2>
+          <div class="field">
+            <label>Notas adicionales</label
+            ><textarea
+              name="notes"
+              rows="3"
+              placeholder="Ej. incluir medias, fecha requerida o detalles adicionales"
+            ></textarea>
+          </div>
+          <p id="total" class="notice">Cantidad de uniformes: 0</p>
+          <button type="submit">Agregar solicitud al carrito</button>
+        </section>
+      </form>
+    </main>
+    <footer>TEAMSTYLE · Tu diseño, tu equipo</footer>
+    <script>
+      const selected = JSON.parse(localStorage.getItem("tsSelected") || "{}");
+      const sportField = document.getElementById("sport");
+      const designField = document.getElementById("design");
+      if (sportField) sportField.value = selected.sport || "";
+      if (designField)
+        designField.value = selected.design || "Diseño personalizado";
 
-let count=0;
-function addPlayer(){
-  count++;
-  const row=document.createElement('div');
-  row.className='players';
-  row.style.margin='12px 0';
-  row.innerHTML=`<div class="field"><label>Nombre jugador ${count}</label><input name="playerName" placeholder="Nombre para camiseta" required></div><div class="field"><label>Número</label><input name="number" type="number" min="0" max="99" placeholder="10" required></div><div class="field"><label>Talla</label><select name="size" required><option value="">Talla</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div><div class="field"><label>Quitar</label><button type="button" onclick="this.closest('.players').remove();updateTotal()">Eliminar fila</button></div>`;
-  document.getElementById('players').appendChild(row);
-  updateTotal();
-}
+      let count = 0;
+      function addPlayer() {
+        count++;
+        const row = document.createElement("div");
+        row.className = "players";
+        row.style.margin = "12px 0";
+        row.innerHTML = `
+          <div class="field">
+            <label>Nombre jugador ${count}</label>
+            <input
+              name="playerName"
+              placeholder="Nombre para camiseta"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Número</label>
+            <input
+              name="number"
+              type="number"
+              min="0"
+              max="99"
+              placeholder="10"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Talla</label>
+            <select name="size" required>
+              <option value="">Talla</option>
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Quitar</label>
+            <button
+              type="button"
+              onclick="this.closest('.players').remove();updateTotal()"
+            >
+              Eliminar fila
+            </button>
+          </div>
+        `;
+        document.getElementById("players").appendChild(row);
+        updateTotal();
+      }
 
-function updateTotal(){
-  const total=document.querySelectorAll('.players').length;
-  document.getElementById('total').textContent='Cantidad de uniformes: '+total;
-}
+      function updateTotal() {
+        const total = document.querySelectorAll(".players").length;
+        document.getElementById("total").textContent =
+          "Cantidad de uniformes: " + total;
+      }
 
-addPlayer();
+      addPlayer();
 
-document.getElementById('customForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const form=e.target;
-  const players=[...document.querySelectorAll('.players')].map(row=>({
-    name: row.querySelector('[name=playerName]')?.value.trim() || '',
-    number: row.querySelector('[name=number]')?.value.trim() || '',
-    size: row.querySelector('[name=size]')?.value || ''
-  }));
+      document
+        .getElementById("customForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const players = [...document.querySelectorAll(".players")].map(
+            (row) => ({
+              name: row.querySelector("[name=playerName]")?.value.trim() || "",
+              number: row.querySelector("[name=number]")?.value.trim() || "",
+              size: row.querySelector("[name=size]")?.value || "",
+            }),
+          );
 
-  if(!players.length || players.some(p=>!p.name || !p.number || !p.size)){
-    alert('Debes completar al menos un jugador con nombre, número y talla.');
-    return;
-  }
+          if (
+            !players.length ||
+            players.some((p) => !p.name || !p.number || !p.size)
+          ) {
+            alert(
+              "Debes completar al menos un jugador con nombre, número y talla.",
+            );
+            return;
+          }
 
-  const formData=new FormData(form);
-  const order={
-    client: String(formData.get('client')||'').trim(),
-    team: String(formData.get('team')||'').trim(),
-    sport: String(formData.get('sport')||'').trim(),
-    design: String(formData.get('design')||'Diseño personalizado').trim(),
-    email: String(formData.get('email')||'').trim(),
-    phone: String(formData.get('phone')||'').trim(),
-    baseColor: String(formData.get('baseColor')||'#152d59'),
-    detailColor: String(formData.get('detailColor')||'#c8f135'),
-    notes: String(formData.get('notes')||'').trim(),
-    players,
-    image: selected.image || ''
-  };
+          const formData = new FormData(form);
+          const order = {
+            client: String(formData.get("client") || "").trim(),
+            team: String(formData.get("team") || "").trim(),
+            sport: String(formData.get("sport") || "").trim(),
+            design: String(
+              formData.get("design") || "Diseño personalizado",
+            ).trim(),
+            email: String(formData.get("email") || "").trim(),
+            phone: String(formData.get("phone") || "").trim(),
+            baseColor: String(formData.get("baseColor") || "#152d59"),
+            detailColor: String(formData.get("detailColor") || "#c8f135"),
+            notes: String(formData.get("notes") || "").trim(),
+            players,
+            image: selected.image || "",
+          };
 
-  if(!order.client || !order.team || !order.sport || !order.design || !order.email){
-    alert('Faltan datos obligatorios del pedido.');
-    return;
-  }
+          if (
+            !order.client ||
+            !order.team ||
+            !order.sport ||
+            !order.design ||
+            !order.email
+          ) {
+            alert("Faltan datos obligatorios del pedido.");
+            return;
+          }
 
-  try{
-    const response=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(order)});
-    const data=await response.json();
-    if(!response.ok) throw new Error(data.error||'No se pudo guardar');
-    localStorage.setItem('tsLastOrder',JSON.stringify({...order,id:data.id}));
-    localStorage.removeItem('tsSelected');
-    location.href='carrito.html';
-  }catch(err){
-    alert('No se pudo guardar el pedido. Asegúrate de iniciar el servidor con npm start. '+err.message);
-  }
-});</script></body></html>
+          try {
+            const response = await fetch("/api/orders", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(order),
+            });
+            const data = await response.json();
+            if (!response.ok)
+              throw new Error(data.error || "No se pudo guardar");
+            localStorage.setItem(
+              "tsLastOrder",
+              JSON.stringify({ ...order, id: data.id }),
+            );
+            localStorage.removeItem("tsSelected");
+            location.href = "carrito.html";
+          } catch (err) {
+            alert(
+              "No se pudo guardar el pedido. Asegúrate de iniciar el servidor con npm start. " +
+                err.message,
+            );
+          }
+        });
+    </script>
+  </body>
+</html>
